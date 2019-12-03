@@ -1,0 +1,10 @@
+{
+  "name": "ballistickemu",
+  "version": "1.0.0",
+  "description": "A Stick Arena Ballistick emulator written in Node.js",
+  "scripts": {
+    "start": "node ./src/"
+  },
+  "author": "Zaseth",
+  "license": "MIT"
+}
