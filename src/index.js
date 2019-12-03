@@ -13,3 +13,4 @@ if (!config) {
 }
 
 global.config = config
+global.logger = require('./utils/logger')
