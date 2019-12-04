@@ -1,5 +1,7 @@
 'use strict'
 
+const Client = require('./client')
+
 /**
  * @exports
  * @class
