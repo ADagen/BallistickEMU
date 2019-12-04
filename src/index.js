@@ -12,6 +12,10 @@ if (!config) {
   throw new Error('Missing config for specified server id.')
 }
 
+if (config.max > 899) {
+  throw new Error('You can only have a maximum of 899 clients on each server.')
+}
+
 global.config = config
 global.logger = require('./utils/logger')
 global.utils = require('./utils/')
