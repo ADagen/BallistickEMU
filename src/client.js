@@ -25,7 +25,7 @@ module.exports = class Client {
      * The client id
      * @type {Number}
      */
-    this.clientId = utils.createClientId(server.clients)
+    this.clientId = utils.generateClientId(server.clients)
     /**
      * Defines if the client is in the server or not
      * @type {Boolean}
