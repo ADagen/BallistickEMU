@@ -15,4 +15,12 @@ module.exports = class Server {
      */
     this.clients = {}
   }
+
+  /**
+   * Return the amount of clients connected
+   * @returns {Number}
+   */
+  get clientCount() {
+    return Object.keys(this.clients).length
+  }
 }
