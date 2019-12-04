@@ -16,6 +16,7 @@ if (config.max > 899) {
   throw new Error('You can only have a maximum of 899 clients on each server.')
 }
 
+// Globals that are used in the emulator
 global.config = config
 global.logger = require('./utils/logger')
 global.utils = require('./utils/')
