@@ -22,6 +22,11 @@ module.exports = class Client {
      */
     this.server = server
     /**
+     * The client id
+     * @type {Number}
+     */
+    this.clientId = utils.generateClientId(server.clients)
+    /**
      * Defines if the client is in the server or not
      * @type {Boolean}
      */
@@ -31,5 +36,27 @@ module.exports = class Client {
      * @type {Boolean}
      */
     this.inLobby = false
+  }
+
+  /**
+   * Send data to the client
+   * @param {String} data
+   * @param {Boolean} log
+   */
+  send(data, log = true) {
+    if (this.socket && this.socket.writable) {
+      if (log) {
+        logger.outgoing(data)
+      }
+
+      this.socket.write(`${data}\0`)
+    }
+  }
+
+  /**
+   * Disconnect the client
+   */
+  disconnect() {
+    this.server.removeClient(this)
   }
 }
