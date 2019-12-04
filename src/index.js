@@ -1,5 +1,8 @@
 'use strict'
 
+global.utils = require('./utils/')
+global.logger = require('./utils/logger')
+
 const serverId = parseInt(process.argv[2])
 
 if (!serverId) {
@@ -18,8 +21,6 @@ if (config.max > 899) {
 
 // Globals that are used in the emulator
 global.config = config
-global.logger = require('./utils/logger')
-global.utils = require('./utils/')
 
 const threads = require('os').cpus().length
 const { isMaster, fork } = require('cluster')

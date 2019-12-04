@@ -15,3 +15,13 @@ exports.generateClientId = function generateClientId(clients) {
 
   return localID
 }
+
+/**
+ * Converts an amount of minutes to milliseconds
+ * @exports
+ * @param {Number} minutes
+ * @returns {Number}
+ */
+exports.minutesToMilliseconds = function minutesToMilliseconds(minutes) {
+  return minutes * 60000
+}
