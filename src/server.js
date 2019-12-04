@@ -72,8 +72,9 @@ module.exports = class Server {
       // Create a new client
       const client = new Client(socket, this)
       this.clients[client.clientId] = client
-      logger.info(`${client.clientId} has connected.`)
+      logger.info(`${client.clientId} has been connected.`)
 
+      // Our server events
       socket.on('data', (data) => console.log(data.split('\0')[0]))
       socket.on('close', () => client.disconnect())
       socket.on('error', () => client.disconnect())
@@ -85,13 +86,14 @@ module.exports = class Server {
    * Stop the server
    */
   stop() {
-    logger.info(`Stopping, disconnecting ${this.clientCount} clients.`)
+    logger.info(`Stopping the server, disconnecting ${this.clientCount} clients.`)
 
+    // Raw disconnect
     for (const clientId in this.clients) {
       this.removeClient(this.clients[clientId])
     }
 
-    process.exit(0)
+    process.exit(0) // Exits npm
   }
 
   /**
@@ -105,7 +107,7 @@ module.exports = class Server {
       client.socket.end()
       client.socket.destroy()
 
-      logger.info(`${client.clientId} has disconnected.`)
+      logger.info(`${client.clientId} has been disconnected.`)
     }
   }
 }

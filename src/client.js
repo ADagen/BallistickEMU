@@ -44,10 +44,9 @@ module.exports = class Client {
    * @param {Boolean} log
    */
   send(data, log = true) {
+    // The socket must exist
     if (this.socket && this.socket.writable) {
-      if (log) {
-        logger.outgoing(data)
-      }
+      if (log) logger.outgoing(data)
 
       this.socket.write(`${data}\0`)
     }
