@@ -1,19 +1,13 @@
 'use strict'
 
 /**
- * Generates a random client id
+ * Creates a client id by incrementing the last client id by 1
  * @exports
  * @param {Object} clients
  * @returns {Number}
  */
-exports.generateClientId = function generateClientId(clients) {
-  let localID = 0
-
-  do {
-    localID = Math.floor(Math.random() * (900) + 100) // 100-999
-  } while (!!clients[localID]) // Must not exist
-
-  return localID
+exports.createClientId = function createClientId(clients) {
+  return parseInt(Object.keys(clients).pop()) + 1
 }
 
 /**
