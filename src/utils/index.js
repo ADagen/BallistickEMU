@@ -7,10 +7,7 @@
  * @returns {Number}
  */
 exports.createClientId = function createClientId(clients) {
-  const clientIds = Object.keys(clients)
-
-  // No client ids? Begin with 100, else +1 the last client id
-  return clientIds.length === 0 ? 100 : parseInt(clientIds.pop()) + 1
+  return Math.max(100, Object.keys(clients).length + 100)
 }
 
 /**
