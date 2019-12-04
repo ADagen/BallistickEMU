@@ -20,3 +20,18 @@ if (config.max > 899) {
 global.config = config
 global.logger = require('./utils/logger')
 global.utils = require('./utils/')
+
+const threads = require('os').cpus().length
+const { isMaster, fork } = require('cluster')
+
+if (isMaster) {
+  for (let i = 0; i < threads; i++) {
+    fork().send({ doLog: i === 0 })
+  }
+} else {
+  process.on('message', (message) => {
+    if (message.doLog) {
+      new (require('./server'))()
+    }
+  })
+}
