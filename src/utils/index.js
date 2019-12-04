@@ -11,7 +11,7 @@ exports.generateLocalID = function generateLocalID(clients) {
 
   do {
     localID = Math.floor(Math.random() * 999)
-  } while (!!clients[localID])
+  } while (localID.toString().length !== 3 && !!clients[localID])
 
   return localID
 }
