@@ -45,6 +45,15 @@ module.exports = class Server {
   }
 
   /**
+   * Return a client by client id
+   * @param {Number} clientId
+   * @returns {Client}
+   */
+  getClient(clientId) {
+    return this.clients[clientId]
+  }
+
+  /**
    * Start the server
    */
   start() {
