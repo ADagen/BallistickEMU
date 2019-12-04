@@ -27,12 +27,12 @@ module.exports = class Client {
      */
     this.clientId = utils.createClientId(server.clients)
     /**
-     * Defines if the client is in the server or not
+     * Defines whether the client is in the server or not
      * @type {Boolean}
      */
     this.inServer = true
     /**
-     * Defines if the client is in the lobby or not
+     * Defines whether the client is in the lobby or not
      * @type {Boolean}
      */
     this.inLobby = false
