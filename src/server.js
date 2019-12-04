@@ -23,4 +23,12 @@ module.exports = class Server {
   get clientCount() {
     return Object.keys(this.clients).length
   }
+
+  /**
+   * Return whether the server is full or not
+   * @returns {Boolean}
+   */
+  get isFull() {
+    return this.clientCount >= config.max
+  }
 }
