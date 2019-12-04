@@ -10,7 +10,7 @@ exports.generateLocalID = function generateLocalID(clients) {
   let localID = 0
 
   do {
-    localID = Math.floor(Math.random() * (999 - 100 + 1) + 100)
+    localID = Math.floor(Math.random() * (900) + 100)
   } while (!!clients[localID])
 
   return localID
