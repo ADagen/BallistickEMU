@@ -92,11 +92,13 @@ module.exports = class Server {
    * Stop the server
    */
   stop() {
-    logger.info(`Stopping the server, disconnecting ${this.clientCount} clients.`)
+    if (this.clientCount > 0) {
+      logger.info(`Stopping the server, disconnecting ${this.clientCount} clients.`)
 
-    // Raw disconnect
-    for (const clientId in this.clients) {
-      this.removeClient(this.clients[clientId])
+      // Raw disconnect
+      for (const clientId in this.clients) {
+        this.removeClient(this.clients[clientId])
+      }
     }
 
     process.exit(0) // Exits npm
