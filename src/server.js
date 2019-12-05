@@ -18,6 +18,12 @@ module.exports = class Server {
     this.clients = {}
 
     /**
+     * The network class
+     * @type {Network}
+     */
+    this.network = require('./system/network')
+
+    /**
      * Start the server
      */
     this.start()
@@ -75,7 +81,7 @@ module.exports = class Server {
       logger.info(`${client.clientId} has been connected.`)
 
       // Our server events
-      socket.on('data', (data) => console.log(data.split('\0')[0]))
+      socket.on('data', async (data) => await this.network.handlePacket(data.split('\0')[0], client))
       socket.on('close', async () => await client.disconnect())
       socket.on('error', async () => await client.disconnect())
       socket.on('timeout', async () => await client.disconnect())
