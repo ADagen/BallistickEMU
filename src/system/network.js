@@ -17,6 +17,14 @@ const packets = {}
  */
 module.exports = class Network {
   /**
+   * Validate the handlers
+   * @returns {Promise}
+   */
+  static validateHandlers() {
+
+  }
+
+  /**
    * Handle an incoming packet
    * @param {String} data
    * @param {Client} client
