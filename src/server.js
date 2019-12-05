@@ -76,9 +76,9 @@ module.exports = class Server {
 
       // Our server events
       socket.on('data', (data) => console.log(data.split('\0')[0]))
-      socket.on('close', () => client.disconnect())
-      socket.on('error', () => client.disconnect())
-      socket.on('timeout', () => client.disconnect())
+      socket.on('close', async () => await client.disconnect())
+      socket.on('error', async () => await client.disconnect())
+      socket.on('timeout', async () => await client.disconnect())
     }).listen(config.port, config.host, () => logger.info(`BallistickEMU listening on ${config.host}:${config.port}.`))
   }
 

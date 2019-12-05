@@ -43,7 +43,7 @@ module.exports = class Client {
    * @param {String} data
    * @param {Boolean} log
    */
-  send(data, log = true) {
+  async send(data, log = true) {
     // The socket must exist
     if (this.socket && this.socket.writable) {
       if (log) logger.outgoing(data)
@@ -55,7 +55,7 @@ module.exports = class Client {
   /**
    * Disconnect the client
    */
-  disconnect() {
+  async disconnect() {
     this.server.removeClient(this)
   }
 }
