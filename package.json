@@ -5,6 +5,10 @@
   "scripts": {
     "start": "node ./src/"
   },
+  "dependencies": {
+    "knex": "^0.20.3",
+    "mysql2": "^2.0.1"
+  },
   "author": "Zaseth",
   "license": "MIT"
 }
