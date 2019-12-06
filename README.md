@@ -4,8 +4,7 @@ A Stick Arena Ballistick emulator written in Node.js
 
 # Modifications
 
-- [SWF] Removed `Unknown (255)` tag
-- [SWF] Removed `Protect` tag
+Todo
 
 # Copyright
 
