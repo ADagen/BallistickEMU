@@ -1,6 +1,6 @@
 # BallistickEMU
 
-A Stick Arena Ballistick emulator written in Node.js
+A Stick Arena Ballistick v558 emulator written in Node.js
 
 # Modifications
 

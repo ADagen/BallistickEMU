@@ -1,7 +1,7 @@
 {
   "name": "ballistickemu",
   "version": "1.0.0",
-  "description": "A Stick Arena Ballistick emulator written in Node.js",
+  "description": "A Stick Arena Ballistick v558 emulator written in Node.js",
   "scripts": {
     "start": "node ./src/"
   },
