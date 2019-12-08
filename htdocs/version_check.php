@@ -1,5 +1,1 @@
-<?php
-
-echo 'result=success';
-
-?>
+<?php echo 'result=success'; ?>
