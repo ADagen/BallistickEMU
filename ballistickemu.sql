@@ -8,7 +8,7 @@ CREATE TABLE `users` (
   `user_level` BOOLEAN NOT NULL DEFAULT 0,
   `banned` BOOLEAN NOT NULL DEFAULT 0,
   `lab_pass` BOOLEAN NOT NULL DEFAULT 0,
-  `lab_pass_days` SMALLINT(5) UNSIGNED NOT NULL DEFAULT 0,
+  `lab_pass_days` SMALLINT(4) NOT NULL DEFAULT 0 CHECK (`lab_pass_days` BETWEEN 0 AND 9999),
   `credits` MEDIUMINT(6) NOT NULL DEFAULT 0 CHECK (`credits` BETWEEN 0 AND 999999),
   `ticket` BOOLEAN NOT NULL DEFAULT 1,
   -- Stats --
