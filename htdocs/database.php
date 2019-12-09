@@ -1,7 +1,5 @@
 <?php
 
-date_default_timezone_set('UTC'); // Used for holiday spinner colors
-
 final class Database extends PDO {
   public function __construct($host, $user, $password, $database) {
     $DSN = sprintf('mysql:dbname=%s;host=%s;charset=utf8mb4', $database, $host);
