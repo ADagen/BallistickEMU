@@ -1,0 +1,31 @@
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  -- Account --
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `username` CHAR(20) NOT NULL,
+  `password` CHAR(255) NOT NULL,
+  -- Extra --
+  `user_level` TINYINT(1) NOT NULL DEFAULT 0 CHECK (`user_level` BETWEEN 0 AND 1),
+  `banned` TINYINT(1) NOT NULL DEFAULT 0 CHECK (`banned` BETWEEN 0 AND 1),
+  `lab_pass` TINYINT(1) NOT NULL DEFAULT 0 CHECK (`lab_pass` BETWEEN 0 AND 1),
+  `lab_pass_days` SMALLINT(5) UNSIGNED NOT NULL DEFAULT 0,
+  `credits` MEDIUMINT(8) UNSIGNED NOT NULL DEFAULT 0,
+  -- Stats --
+  `rounds` INT(10) UNSIGNED NOT NULL DEFAULT 0,
+  `kills` INT(10) UNSIGNED NOT NULL DEFAULT 0,
+  `deaths` INT(10) UNSIGNED NOT NULL DEFAULT 0,
+  `wins` INT(10) UNSIGNED NOT NULL DEFAULT 0,
+  `losses` INT(10) UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `reports`;
+CREATE TABLE `reports` (
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `reporter_username` CHAR(20) NOT NULL,
+  `reported_username` CHAR(20) NOT NULL,
+  `reported_ip` CHAR(15) NOT NULL,
+  `msg` CHAR(250) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=latin1;
