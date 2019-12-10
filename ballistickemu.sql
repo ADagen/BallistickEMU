@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   -- Account info --
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `username` CHAR(20) NOT NULL,
+  `username` VARCHAR(20) NOT NULL,
   `password` CHAR(255) NOT NULL,
   -- Extra account info --
   `user_level` BOOLEAN NOT NULL DEFAULT 0,
@@ -63,9 +63,9 @@ DROP TABLE IF EXISTS `reports`;
 CREATE TABLE `reports` (
   -- Report contacts --
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `reporter_username` CHAR(20) NOT NULL,
-  `reported_username` CHAR(20) NOT NULL,
-  `reported_ip` CHAR(15) NOT NULL,
+  `reporter_username` VARCHAR(20) NOT NULL,
+  `reported_username` VARCHAR(20) NOT NULL,
+  `reported_ip` VARCHAR(15) NOT NULL,
   -- Report --
   `msg` CHAR(250) NOT NULL,
   PRIMARY KEY (`id`)
