@@ -44,13 +44,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST) && isset($_POST['act
     if (!isValidString(['username', 'userpass'])) return die('result=error');
     if (!isValidColor($_POST['usercol'])) return die('result=error');
 
-    // Todo
+    $db->createAccount($_POST['username'], $_POST['userpass'], $_POST['usercol']);
   } else if ($action === 'report_player') {
     if (isEmpty(['reporter_username', 'reported_username', 'reported_ip', 'msg'])) return die('result=error');
     if (!isValidString(['reporter_username', 'reported_username'])) return die('result=error');
     if (!filter_var($_POST['reported_ip'], FILTER_VALIDATE_IP) || strlen($_POST['msg']) > 250) return die('result=error');
 
-    // Todo
+    $db->reportPlayer($_POST['reporter_username'], $_POST['reported_username'], $_POST['reported_ip'], $_POST['msg']);
   } else {
     return die('result=error');
   }

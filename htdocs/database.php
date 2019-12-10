@@ -14,6 +14,73 @@ final class Database extends PDO {
       throw new \PDOException($e->getMessage(), (int)$e->getCode());
     }
   }
+
+  public function usernameExists($username) {
+    $q1 = $this->prepare('SELECT COUNT(*) FROM users WHERE username = :username');
+    $q1->execute(['username' => $username]);
+
+    $usernameExists = $q1->fetchColumn();
+    $q1->closeCursor();
+
+    return $usernameExists;
+  }
+
+  public function addSpinner($id, $usercol) {
+    list($red, $green, $blue) = str_split($usercol, 3);
+
+    $q1 = $this->prepare(
+      'INSERT INTO spinners
+      (id, itemId, selected, redInner, greenInner, blueInner, redOuter, greenOuter, blueOuter)
+      VALUES
+      (:id, 100, 1, :redInner, :greenInner, :blueInner, :redOuter, :greenOuter, :blueOuter)'
+    );
+    $q1->execute([
+      'id'         => $id,
+      'redInner'   => $red,
+      'greenInner' => $green,
+      'blueInner'  => $blue,
+      'redOuter'   => $red,
+      'greenOuter' => $green,
+      'blueOuter'  => $blue
+    ]);
+    $q1->closeCursor();
+  }
+
+  public function createAccount($username, $password, $usercol) {
+    if ($this->usernameExists($username)) {
+      return die('result=error');
+    }
+
+    $q1 = $this->prepare('INSERT INTO users (username, password) VALUES (:username, :password)');
+    $q1->execute(['username' => $username, 'password' => password_hash($password, PASSWORD_ARGON2ID)]);
+    $q1->closeCursor();
+
+    $this->addSpinner($this->lastInsertId(), $usercol);
+
+    echo 'result=success';
+  }
+
+  public function reportPlayer($reporter_username, $reported_username, $reported_ip, $msg) {
+    if (!$this->usernameExists($reporter_username) || !$this->usernameExists($reported_username)) {
+      return die('result=error');
+    }
+
+    $q1 = $this->prepare(
+      'INSERT INTO reports
+      (reporter_username, reported_username, reported_ip, msg)
+      VALUES
+      (:reporter_username, :reported_username, :reported_ip, :msg)'
+    );
+    $q1->execute([
+      'reporter_username' => $reporter_username,
+      'reported_username' => $reported_username,
+      'reported_ip'       => $reported_ip,
+      'msg'               => $this->quote($msg)
+    ]);
+    $q1->closeCursor();
+
+    echo 'result=success';
+  }
 }
 
 ?>
