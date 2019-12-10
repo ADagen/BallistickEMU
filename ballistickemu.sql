@@ -5,6 +5,8 @@ CREATE TABLE `users` (
   `username` VARCHAR(20) NOT NULL,
   `password` CHAR(255) NOT NULL,
   -- Extra account info --
+  `created` INT(8) NOT NULL DEFAULT DATE_FORMAT(CURDATE(), '%Y%m%d'),
+  `last_login` INT(8) NOT NULL DEFAULT DATE_FORMAT(CURDATE(), '%Y%m%d'),
   `user_level` BOOLEAN NOT NULL DEFAULT 0,
   `banned` BOOLEAN NOT NULL DEFAULT 0,
   `lab_pass` BOOLEAN NOT NULL DEFAULT 0,
