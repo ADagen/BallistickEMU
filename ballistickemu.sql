@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
-  -- Account info --
+  -- Account details --
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(20) NOT NULL,
   `password` CHAR(255) NOT NULL,
@@ -61,7 +61,7 @@ CREATE TABLE `pets` (
 
 DROP TABLE IF EXISTS `reports`;
 CREATE TABLE `reports` (
-  -- Report contacts --
+  -- Report account details --
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `reporter_username` VARCHAR(20) NOT NULL,
   `reported_username` VARCHAR(20) NOT NULL,
