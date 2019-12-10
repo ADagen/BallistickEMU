@@ -1,15 +1,19 @@
 'use strict'
 
 /**
- * The packet handlers
+ * The handlers
  * @constant
  */
-const handlers = {}
+const Handlers = require('../handlers/')
+
 /**
  * The packet identifiers
  * @constant
  */
-const packets = {}
+const packets = {
+  '08': { func: 'handleCheckServerCapacity', enabled: true, log: false },
+  '09': { func: 'handleAuthentication', enabled: true, log: true }
+}
 
 /**
  * @exports
@@ -21,7 +25,17 @@ module.exports = class Network {
    * @returns {Promise}
    */
   static validateHandlers() {
+    return new Promise((resolve) => {
+      for (const identifier in packets) {
+        const packet = packets[identifier]
 
+        if (packet.enabled && !Handlers[packet.func]) {
+          throw `Missing packet: '${packet.func}' with identifier: '${identifier}'.`
+        }
+      }
+
+      resolve()
+    })
   }
 
   /**
@@ -30,6 +44,21 @@ module.exports = class Network {
    * @param {Client} client
    */
   static async handlePacket(data, client) {
+    if (data === '<policy-file-request/>') {
+      return await client.send(`<cross-domain-policy><allow-access-from domain='*' to-ports='*' /></cross-domain-policy>`, false)
+    }
 
+    const beginChr = data.charAt()
+    const identifier = beginChr === '0' ? data.substring(0, 2) : beginChr
+    const args = data.slice(identifier.length)
+    const packet = packets[identifier]
+
+    if (!packet) {
+      logger.error(`Unknown packet: '${data}'.`)
+    } else if (packet.enabled) {
+      if (packet.log) logger.incoming(data)
+
+      args ? await Handlers[packet.func](args, client, packet.log) : await Handlers[packet.func](client, packet.log)
+    }
   }
 }

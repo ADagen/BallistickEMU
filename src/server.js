@@ -26,7 +26,7 @@ module.exports = class Server {
     /**
      * Start the server
      */
-    this.start()
+    this.network.validateHandlers().then(() => { this.start() }).catch((err) => logger.error(err))
     /**
      * Stop the server
      */
@@ -66,14 +66,6 @@ module.exports = class Server {
     require('net').createServer((socket) => {
       socket.setEncoding('utf8')
       socket.setTimeout(config.timeout)
-
-      // Disconnect the client when the server is full
-      if (this.isFull) {
-        socket.write('090\0')
-        socket.end()
-        socket.destroy()
-        return
-      }
 
       // Create a new client
       const client = new Client(socket, this)
