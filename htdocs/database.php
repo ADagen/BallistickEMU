@@ -29,10 +29,10 @@ final class Database extends PDO {
     list($red, $green, $blue) = str_split($usercol, 3);
 
     $q1 = $this->prepare(
-      'INSERT INTO spinners
-      (id, itemId, selected, redInner, greenInner, blueInner, redOuter, greenOuter, blueOuter)
+      'INSERT INTO inventory
+      (id, itemType, itemId, selected, redInner, greenInner, blueInner, redOuter, greenOuter, blueOuter)
       VALUES
-      (:id, 100, 1, :redInner, :greenInner, :blueInner, :redOuter, :greenOuter, :blueOuter)'
+      (:id, 1, 100, 1, :redInner, :greenInner, :blueInner, :redOuter, :greenOuter, :blueOuter)'
     );
     $q1->execute([
       'id'         => $id,
@@ -46,6 +46,17 @@ final class Database extends PDO {
     $q1->closeCursor();
   }
 
+  public function addPetSlot($id) {
+    $q1 = $this->prepare(
+      'INSERT INTO inventory
+      (id, itemType, itemId, selected, redInner, greenInner, blueInner, redOuter, greenOuter, blueOuter)
+      VALUES
+      (:id, 2, 200, 0, 0, 0, 0, 0, 0, 0)'
+    );
+    $q1->execute(['id' => $id]);
+    $q1->closeCursor();
+  }
+
   public function createAccount($username, $password, $usercol) {
     if ($this->usernameExists($username)) {
       return die('result=error');
@@ -55,7 +66,10 @@ final class Database extends PDO {
     $q1->execute(['username' => $username, 'password' => password_hash($password, PASSWORD_ARGON2ID)]);
     $q1->closeCursor();
 
-    $this->addSpinner($this->lastInsertId(), $usercol);
+    $id = $this->lastInsertId();
+
+    $this->addSpinner($id, $usercol);
+    $this->addPetSlot($id);
 
     echo 'result=success';
   }
