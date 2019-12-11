@@ -102,9 +102,6 @@ module.exports = class Client {
       greenOuter: i.greenOuter.toString().padStart(3, '0'),
       blueOuter: i.blueOuter.toString().padStart(3, '0')
     }, o), {})
-
-    console.log(this.spinners)
-    console.log(this.pets)
   }
 
   /**
