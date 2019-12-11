@@ -22,6 +22,11 @@ module.exports = class Server {
      * @type {Network}
      */
     this.network = require('./system/network')
+    /**
+     * The database class
+     * @type {Database}
+     */
+    this.database = new (require('./system/database'))(require('../config/database'))
 
     /**
      * Start the server
