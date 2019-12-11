@@ -71,7 +71,7 @@ module.exports = class Client {
    * @param {Number} dateInteger
    */
   async updateLastLogin(dateInteger) {
-    if (this.last_login !== dateInteger) {
+    if (this.last_login !== dateInteger) { // Only update when needed
       await this.updateColumn(this.id, 'last_login', dateInteger)
       this.last_login = dateInteger
     }
@@ -116,17 +116,23 @@ module.exports = class Client {
     const spinnerKeys = Object.keys(this.spinners)
 
     if (spinnerKeys.length === 1) { // Only default spinner
-      this.selectedSpinner = this.spinners[spinnerKeys[0]]
+      this.selectedSpinner = JSON.parse(JSON.stringify(this.spinners[spinnerKeys[0]]))
     } else {
       for (const uniqueItemId in this.spinners) {
         const spinner = this.spinners[uniqueItemId]
 
         if (spinner.selected) {
-          this.selectedSpinner = spinner
+          this.selectedSpinner = JSON.parse(JSON.stringify(spinner))
           break // Stop searching
         }
       }
     }
+
+    // Clean the selected spinner
+    delete this.selectedSpinner.selected
+    const { redInner, greenInner, blueInner, redOuter, greenOuter, blueOuter } = this.selectedSpinner
+    this.selectedSpinner.innerColor = redInner + greenInner + blueInner
+    this.selectedSpinner.outerColor = redOuter + greenOuter + blueOuter
   }
 
   /**
@@ -140,11 +146,17 @@ module.exports = class Client {
         const pet = this.pets[uniqueItemId]
 
         if (pet.selected) {
-          this.selectedPet = pet
+          this.selectedPet = JSON.parse(JSON.stringify(pet))
           break // Stop searching
         }
       }
     }
+
+    // Clean the selected pet
+    delete this.selectedPet.selected
+    const { redInner, greenInner, blueInner, redOuter, greenOuter, blueOuter } = this.selectedPet
+    this.selectedPet.innerColor = redInner + greenInner + blueInner
+    this.selectedPet.outerColor = redOuter + greenOuter + blueOuter
   }
 
   /**
