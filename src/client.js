@@ -102,6 +102,47 @@ module.exports = class Client {
       greenOuter: i.greenOuter.toString().padStart(3, '0'),
       blueOuter: i.blueOuter.toString().padStart(3, '0')
     }, o), {})
+
+    this.fetchSelectedSpinner()
+    this.fetchSelectedPet()
+  }
+
+  /**
+   * Fetch the client's selected spinner
+   */
+  fetchSelectedSpinner() {
+    const spinnerKeys = Object.keys(this.spinners)
+
+    if (spinnerKeys.length === 1) { // Only default spinner
+      this.selectedSpinner = this.spinners[spinnerKeys[0]]
+    } else {
+      for (const uniqueItemId in this.spinners) {
+        const spinner = this.spinners[uniqueItemId]
+
+        if (spinner.selected) {
+          this.selectedSpinner = spinner
+          break // Stop searching
+        }
+      }
+    }
+  }
+
+  /**
+   * Fetch the client's selected pet
+   */
+  fetchSelectedPet() {
+    if (Object.keys(this.pets).length === 1) { // Only empty pet slot
+      this.selectedPet = {}
+    } else {
+      for (const uniqueItemId in this.pets) {
+        const pet = this.pets[uniqueItemId]
+
+        if (pet.selected) {
+          this.selectedPet = pet
+          break // Stop searching
+        }
+      }
+    }
   }
 
   /**
