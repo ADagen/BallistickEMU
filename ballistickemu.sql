@@ -55,3 +55,12 @@ CREATE TABLE `reports` (
   `msg` CHAR(250) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+LOCK TABLES `users` WRITE;
+INSERT INTO `users` (`id`, `username`, `password`) VALUES (100, 'Zaseth', '$argon2id$v=19$m=65536,t=4,p=1$Q28xMEFkejZ0RDV3ZEEwUw$v6Ci2fDOfBk388UrzKgA+KlgmHF7TVLedlHJY/tzCmc');
+UNLOCK TABLES;
+
+LOCK TABLES `inventory` WRITE;
+INSERT INTO `inventory` (`id`, `itemType`, `itemId`, `selected`) VALUES (100, 1, 100, 1);
+INSERT INTO `inventory` (`id`, `itemType`, `itemId`, `selected`, `redInner`, `redOuter`) VALUES (100, 2, 200, 0, 0, 0);
+UNLOCK TABLES;
