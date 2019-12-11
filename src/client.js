@@ -61,6 +61,8 @@ module.exports = class Client {
     this.ticket = Boolean(this.ticket)
 
     await this.updateLastLogin(utils.dateToInt())
+    await this.fetchSpinners()
+    await this.fetchPets()
   }
 
   /**
@@ -72,6 +74,40 @@ module.exports = class Client {
       await this.updateColumn(this.id, 'last_login', dateInteger)
       this.last_login = dateInteger
     }
+  }
+
+  /**
+   * Fetch the client's spinners
+   */
+  async fetchSpinners() {
+    this.spinners = await this.database.knex('inventory').select('*').where('id', this.id).andWhere('itemType', 1)
+    this.spinners = this.spinners.reduce((o, i) => (o[i.uniqueItemId] = {
+      itemId: i.itemId,
+      selected: Boolean(i.selected),
+      redInner: i.redInner,
+      greenInner: i.greenInner,
+      blueInner: i.blueInner,
+      redOuter: i.redOuter,
+      greenOuter: i.greenOuter,
+      blueOuter: i.blueOuter
+    }, o), {})
+  }
+
+  /**
+   * Fetch the client's pets
+   */
+  async fetchPets() {
+    this.pets = await this.database.knex('inventory').select('*').where('id', this.id).andWhere('itemType', 2)
+    this.pets = this.pets.reduce((o, i) => (o[i.uniqueItemId] = {
+      itemId: i.itemId,
+      selected: Boolean(i.selected),
+      redInner: i.redInner,
+      greenInner: i.greenInner,
+      blueInner: i.blueInner,
+      redOuter: i.redOuter,
+      greenOuter: i.greenOuter,
+      blueOuter: i.blueOuter
+    }, o), {})
   }
 
   /**
