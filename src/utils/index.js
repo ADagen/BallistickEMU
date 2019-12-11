@@ -39,3 +39,13 @@ exports.validateMaxProp = function validateMaxProp(max) {
 exports.minutesToMilliseconds = function minutesToMilliseconds(minutes) {
   return minutes * 60000
 }
+
+/**
+ * Converts a date to an integer
+ * @exports
+ * @param {Date} date
+ * @returns {Number}
+ */
+exports.dateToInt = function dateToInt(date = new Date()) {
+  return date.getFullYear() * 10000 + (date.getMonth() + 1) * 100 + date.getDate()
+}

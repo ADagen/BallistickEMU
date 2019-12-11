@@ -1,5 +1,7 @@
 'use strict'
 
+const { verify, argon2id } = require('argon2')
+
 /**
  * @exports
  */
@@ -39,6 +41,28 @@ module.exports = {
     // Client must match some properties
     if (client.inLobby || !client.inServer) {
       return await client.disconnect()
+    }
+
+    const result = await client.database.knex('users').first().where({ username })
+
+    // Username does not exist
+    if (!result) {
+      return await client.send('09')
+    }
+
+    if (result.banned) {
+      // Todo: Support temp bans
+      return await client.send('091')
+    }
+
+    try {
+      const correctPassword = await verify(result.password, password, { type: argon2id })
+      if (!correctPassword) throw 'Invalid username or password.'
+
+      await client.setClient(result)
+      // Todo
+    } catch (e) {
+      await client.send('09')
     }
   }
 }

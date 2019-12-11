@@ -44,6 +44,51 @@ module.exports = class Client {
   }
 
   /**
+   * Set the client
+   * @param {Object} result
+   */
+  async setClient(result) {
+    delete result.password
+    delete result.banned
+
+    for (const key in result) {
+      this[key] = result[key]
+    }
+
+    this.user_level = Boolean(this.user_level)
+    this.muted = Boolean(this.muted)
+    this.lab_pass = Boolean(this.lab_pass)
+    this.ticket = Boolean(this.ticket)
+
+    await this.updateLastLogin(utils.dateToInt())
+  }
+
+  /**
+   * Update the last login
+   * @param {Number} dateInteger
+   */
+  async updateLastLogin(dateInteger) {
+    if (this.last_login !== dateInteger) {
+      await this.updateColumn(this.id, 'last_login', dateInteger)
+      this.last_login = dateInteger
+    }
+  }
+
+  /**
+   * Updates a column
+   * @param {String|Number} playerIdentify
+   * @param {String} column
+   * @param {String|Number} value
+   */
+  async updateColumn(playerIdentify, column, value) {
+    try {
+      await this.database.knex('users').update(column, value).where(isNaN(playerIdentify) ? 'username' : 'id', playerIdentify)
+    } catch (e) {
+      await this.disconnect()
+    }
+  }
+
+  /**
    * Send data to the client
    * @param {String} data
    * @param {Boolean} log
