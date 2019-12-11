@@ -20,6 +20,11 @@ module.exports = {
     }
   },
   /**
+   * Keep the client alive
+   * @param {Client} client
+   */
+  handleKeepAlive: async (client) => { await client.send('0', false) },
+  /**
    * Handle the authentication
    * @param {String} data
    * @param {Client} client
@@ -51,7 +56,7 @@ module.exports = {
     }
 
     if (result.banned) {
-      // Todo: Support temp bans
+      // Todo: Support time-based bans
       return await client.send('091')
     }
 
@@ -60,7 +65,13 @@ module.exports = {
       if (!correctPassword) throw 'Invalid username or password.'
 
       await client.setClient(result)
-      // Todo: Finish this handler
+
+      let packet = `A${client.clientId}${client.username.padStart(20, '#')}`
+      packet += `${client.selectedSpinner.innerColor}${client.selectedSpinner.outerColor}`
+      packet += `${client.kills};${client.deaths};${client.wins};${client.losses};${client.rounds};`
+      packet += `${Number(client.lab_pass)};${client.lab_pass_days};${Number(client.ticket)};${client.credits};${Number(client.user_level)}`
+
+      await client.send(packet)
     } catch (e) {
       await client.send('09')
     }

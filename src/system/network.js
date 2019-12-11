@@ -12,6 +12,7 @@ const Handlers = require('../handlers/')
  */
 const packets = {
   '08': { func: 'handleCheckServerCapacity', enabled: true, log: false },
+  '0': { func: 'handleKeepAlive', enabled: true, log: false },
   '09': { func: 'handleAuthentication', enabled: true, log: true }
 }
 
@@ -54,7 +55,7 @@ module.exports = class Network {
     const packet = packets[identifier]
 
     if (!packet) {
-      logger.error(`Unknown packet: '${data}'.`)
+      logger.error(`Unknown packet: '${data}'`)
     } else if (packet.enabled) {
       if (packet.log) logger.incoming(data)
 
