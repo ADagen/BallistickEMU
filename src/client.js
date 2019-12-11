@@ -60,11 +60,8 @@ module.exports = class Client {
     this.lab_pass = Boolean(this.lab_pass)
     this.ticket = Boolean(this.ticket)
 
-    // Todo: Set ticket to true when needed
-
     await this.updateLastLogin(utils.dateToInt())
-    await this.fetchSpinners()
-    await this.fetchPets()
+    await this.fetchInventory()
   }
 
   /**
@@ -79,37 +76,35 @@ module.exports = class Client {
   }
 
   /**
-   * Fetch the client's spinners
+   * Fetch the client's inventory
    */
-  async fetchSpinners() {
-    this.spinners = await this.database.knex('inventory').select('*').where('id', this.id).andWhere('itemType', 1)
+  async fetchInventory() {
+    this.spinners = await this.database.knex('inventory').select('*').where({ id: this.id, itemType: 1 })
+    this.pets = await this.database.knex('inventory').select('*').where({ id: this.id, itemType: 2 })
+
     this.spinners = this.spinners.reduce((o, i) => (o[i.uniqueItemId] = {
       itemId: i.itemId,
       selected: Boolean(i.selected),
-      redInner: i.redInner,
-      greenInner: i.greenInner,
-      blueInner: i.blueInner,
-      redOuter: i.redOuter,
-      greenOuter: i.greenOuter,
-      blueOuter: i.blueOuter
+      redInner: i.redInner.toString().padStart(3, '0'),
+      greenInner: i.greenInner.toString().padStart(3, '0'),
+      blueInner: i.blueInner.toString().padStart(3, '0'),
+      redOuter: i.redOuter.toString().padStart(3, '0'),
+      greenOuter: i.greenOuter.toString().padStart(3, '0'),
+      blueOuter: i.blueOuter.toString().padStart(3, '0')
     }, o), {})
-  }
-
-  /**
-   * Fetch the client's pets
-   */
-  async fetchPets() {
-    this.pets = await this.database.knex('inventory').select('*').where('id', this.id).andWhere('itemType', 2)
     this.pets = this.pets.reduce((o, i) => (o[i.uniqueItemId] = {
       itemId: i.itemId,
       selected: Boolean(i.selected),
-      redInner: i.redInner,
-      greenInner: i.greenInner,
-      blueInner: i.blueInner,
-      redOuter: i.redOuter,
-      greenOuter: i.greenOuter,
-      blueOuter: i.blueOuter
+      redInner: i.redInner.toString().padStart(3, '0'),
+      greenInner: i.greenInner.toString().padStart(3, '0'),
+      blueInner: i.blueInner.toString().padStart(3, '0'),
+      redOuter: i.redOuter.toString().padStart(3, '0'),
+      greenOuter: i.greenOuter.toString().padStart(3, '0'),
+      blueOuter: i.blueOuter.toString().padStart(3, '0')
     }, o), {})
+
+    console.log(this.spinners)
+    console.log(this.pets)
   }
 
   /**
