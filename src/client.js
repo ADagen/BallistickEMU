@@ -60,6 +60,8 @@ module.exports = class Client {
     this.lab_pass = Boolean(this.lab_pass)
     this.ticket = Boolean(this.ticket)
 
+    // Todo: Ticket system
+
     await this.updateLastLogin(utils.dateToInt())
     await this.fetchInventory()
   }
