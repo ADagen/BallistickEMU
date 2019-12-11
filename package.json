@@ -6,8 +6,8 @@
     "start": "node ./src/"
   },
   "dependencies": {
-    "knex": "^0.20.3",
-    "mysql2": "^2.0.1",
+    "knex": "^0.20.4",
+    "mysql2": "^2.0.2",
     "argon2": "^0.25.1"
   },
   "author": "Zaseth",
