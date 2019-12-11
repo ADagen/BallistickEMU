@@ -49,9 +49,9 @@ final class Database extends PDO {
   public function addPetSlot($id) {
     $q1 = $this->prepare(
       'INSERT INTO inventory
-      (id, itemType, itemId, selected, redInner, greenInner, blueInner, redOuter, greenOuter, blueOuter)
+      (id, itemType, itemId, selected, redInner, redOuter)
       VALUES
-      (:id, 2, 200, 0, 0, 0, 0, 0, 0, 0)'
+      (:id, 2, 200, 0, 0, 0)'
     );
     $q1->execute(['id' => $id]);
     $q1->closeCursor();
