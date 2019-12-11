@@ -48,6 +48,9 @@ module.exports = class Client {
    * @param {Object} result
    */
   async setClient(result) {
+    this.inServer = false
+    this.inLobby = true
+
     delete result.password
     delete result.banned
 
