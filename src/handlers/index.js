@@ -60,7 +60,7 @@ module.exports = {
       if (!correctPassword) throw 'Invalid username or password.'
 
       await client.setClient(result)
-      // Todo
+      // Todo: Finish this handler
     } catch (e) {
       await client.send('09')
     }
