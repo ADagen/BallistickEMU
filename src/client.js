@@ -116,7 +116,9 @@ module.exports = class Client {
     const spinnerKeys = Object.keys(this.spinners)
 
     if (spinnerKeys.length === 1) { // Only default spinner
-      this.selectedSpinner = JSON.parse(JSON.stringify(this.spinners[spinnerKeys[0]]))
+      const uniqueItemId = spinnerKeys[0]
+
+      this.selectedSpinner = JSON.parse(JSON.stringify(this.spinners[uniqueItemId]))
     } else {
       for (const uniqueItemId in this.spinners) {
         const spinner = this.spinners[uniqueItemId]
