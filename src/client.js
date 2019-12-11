@@ -48,6 +48,7 @@ module.exports = class Client {
    * @param {Object} result
    */
   async setClient(result) {
+    this.server.lobbyClients[this.clientId] = this
     this.inServer = false
     this.inLobby = true
 
