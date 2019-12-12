@@ -16,6 +16,11 @@ module.exports = class Server {
      * @type {Object}
      */
     this.clients = {}
+    /**
+     * The lobby clients
+     * @type {Object}
+     */
+    this.lobbyClients = {}
 
     /**
      * The network class
@@ -106,13 +111,17 @@ module.exports = class Server {
    * @param {Client} client
    */
   removeClient(client) {
-    if (this.clients[client.clientId]) {
+    if (client.inServer) {
       delete this.clients[client.clientId]
 
       client.socket.end()
       client.socket.destroy()
-
-      logger.info(`${client.clientId} has been disconnected.`)
     }
+
+    if (client.inLobby) {
+      delete this.lobbyClients[client.clientId]
+    }
+
+    logger.info(`${client.clientId} has been disconnected.`)
   }
 }

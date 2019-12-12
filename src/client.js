@@ -48,7 +48,10 @@ module.exports = class Client {
    * @param {Object} result
    */
   async setClient(result) {
-    // Todo: Add to lobby by reference from this.server.clients
+    // Create a reference to preserve memory
+    this.server.lobbyClients[this.clientId] = this.server.clients[this.clientId]
+    this.inServer = false
+    this.inLobby = true
 
     // We don't need these
     delete result.password
