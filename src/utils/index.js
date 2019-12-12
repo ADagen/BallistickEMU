@@ -49,3 +49,17 @@ exports.minutesToMilliseconds = function minutesToMilliseconds(minutes) {
 exports.dateToInt = function dateToInt(date = new Date()) {
   return date.getFullYear() * 10000 + (date.getMonth() + 1) * 100 + date.getDate()
 }
+
+/**
+ * Converts a date to an SQL date to use for next credit date
+ * @exports
+ * @param {Date} date
+ * @returns {Number}
+ */
+exports.nextCreditDate = function nextCreditDate(date) {
+  date.setHours(date.getHours() + 9) // Every 8 hours, this is UTC
+
+  const [YMD, HMS] = date.toISOString().split('T')
+
+  return `${YMD} ${HMS.split('.')[0]}`
+}
