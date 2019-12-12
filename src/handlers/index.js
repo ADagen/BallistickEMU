@@ -57,15 +57,15 @@ module.exports = {
     }
 
     if (result.banned) {
-      // Todo: Support time-based bans
+      // Todo: Support time-based (temp) bans
       return await client.send('091', log)
     }
 
     try {
       const correctPassword = await verify(result.password, password, { type: argon2id })
-      if (!correctPassword) throw 'Invalid username or password.'
+      if (!correctPassword) throw 'Invalid username or password.' // Caught
 
-      await client.setClient(result)
+      await client.setClient(result) // Sets up the client, important
 
       let packet = `A${client.clientId}${client.username.padStart(20, '#')}`
       packet += `${client.selectedSpinner.innerColor}${client.selectedSpinner.outerColor}`
