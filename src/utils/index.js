@@ -51,15 +51,12 @@ exports.dateToInt = function dateToInt(date = new Date()) {
 }
 
 /**
- * Converts a date to an SQL date to use for next credit date
+ * Generate a random number between 2 numbers
  * @exports
- * @param {Date} date
+ * @param {Number} min
+ * @param {Number} max
  * @returns {Number}
  */
-exports.nextCreditDate = function nextCreditDate(date) {
-  date.setHours(date.getHours() + 9) // Every 8 hours, this is UTC
-
-  const [YMD, HMS] = date.toISOString().split('T')
-
-  return `${YMD} ${HMS.split('.')[0]}`
+exports.generateRandomNumber = function generateRandomNumber(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min)
 }
