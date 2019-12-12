@@ -16,11 +16,6 @@ module.exports = class Server {
      * @type {Object}
      */
     this.clients = {}
-    /**
-     * The connected lobby clients
-     * @type {Object}
-     */
-    this.lobbyClients = {}
 
     /**
      * The network class
