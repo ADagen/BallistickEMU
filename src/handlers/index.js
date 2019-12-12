@@ -83,6 +83,7 @@ module.exports = {
    * @param {Boolean} log
    */
   handleTicket: async (client, log) => {
+    // Cheating for rewards
     if (!client.ticket) {
       return await client.disconnect()
     }
