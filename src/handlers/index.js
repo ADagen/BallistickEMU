@@ -83,6 +83,10 @@ module.exports = {
    * @param {Boolean} log
    */
   handleTicket: async (client, log) => {
+    if (!client.ticket) {
+      return await client.disconnect()
+    }
+
     // Todo
   }
 }
