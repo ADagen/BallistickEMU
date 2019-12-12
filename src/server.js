@@ -99,7 +99,9 @@ module.exports = class Server {
 
       // Raw disconnect
       for (const clientId in this.clients) {
-        this.removeClient(this.clients[clientId])
+        const client = this.clients[clientId]
+
+        this.removeClient(client)
       }
     }
 
