@@ -110,5 +110,19 @@ module.exports = {
    * @param {Client} client
    * @param {Boolean} log
    */
-  handleGetInventory: async (client, log) => await client.send(`0c${client.inventoryString}`, log)
+  handleGetInventory: async (client, log) => await client.send(`0c${client.inventoryString}`, log),
+  /**
+   * Handle the item selection
+   * @param {String} uniqueItemId
+   * @param {Client} client
+   * @param {Boolean} log
+   */
+  handleSelectItem: async (uniqueItemId, client, log) => {
+    // The unique item id must be a number and the client must own it
+    if (isNaN(uniqueItemId) || !client.spinners[uniqueItemId] && !client.pets[uniqueItemId]) {
+      return await client.disconnect()
+    }
+
+    // Todo: Finish this handler
+  }
 }
