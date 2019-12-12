@@ -87,6 +87,19 @@ module.exports = {
       return await client.disconnect()
     }
 
-    // Todo
+    const prizes = {
+      // Small prizes
+      '0': 20, '1': 25, '2': 30, '3': 35, '4': 40, '5': 55, '6': 60, '7': 75,
+      // Medium prizes
+      '8': 100, '9': 250, '10': 500, '11': 999,
+      // Big prizes
+      '12': 1500, '13': 5000
+    }
+
+    const randomPrizeId = utils.generateRandomNumber(0, Object.keys(prizes).length)
+    const randomPrizeAmount = prizes[randomPrizeId]
+
+    await client.addCredits(randomPrizeAmount)
+    await client.send(`0a${randomPrizeId}`, log)
   }
 }
