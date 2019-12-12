@@ -53,6 +53,14 @@ module.exports = class Server {
   }
 
   /**
+   * Return the amount of lobby clients
+   * @returns {Number}
+   */
+  get lobbyCount() {
+    return Object.keys(this.lobbyClients).length
+  }
+
+  /**
    * Return whether the server is full or not
    * @returns {Boolean}
    */
@@ -67,6 +75,15 @@ module.exports = class Server {
    */
   getClient(clientId) {
     return this.clients[clientId]
+  }
+
+  /**
+   * Return a lobby client by client id
+   * @param {Number} clientId
+   * @returns {Client}
+   */
+  getLobbyClient(clientId) {
+    return this.lobbyClients[clientId]
   }
 
   /**
