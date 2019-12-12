@@ -88,6 +88,8 @@ module.exports = {
       return await client.disconnect()
     }
 
+    // Todo: Ticket prize algorithm
+
     const prizes = {
       // Small prizes
       '0': 20, '1': 25, '2': 30, '3': 35, '4': 40, '5': 55, '6': 60, '7': 75,
