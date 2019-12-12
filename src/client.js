@@ -173,12 +173,15 @@ module.exports = class Client {
       const uniqueItemId = spinnerKeys[0]
 
       this.selectedSpinner = JSON.parse(JSON.stringify(this.spinners[uniqueItemId]))
+      this.selectedSpinner.uniqueItemId = uniqueItemId
     } else {
       for (const uniqueItemId in this.spinners) {
         const spinner = this.spinners[uniqueItemId]
 
         if (spinner.selected) {
           this.selectedSpinner = JSON.parse(JSON.stringify(spinner))
+          this.selectedSpinner.uniqueItemId = uniqueItemId
+
           break // Stop searching
         }
       }
@@ -203,6 +206,8 @@ module.exports = class Client {
 
         if (pet.selected) {
           this.selectedPet = JSON.parse(JSON.stringify(pet))
+          this.selectedPet.uniqueItemId = uniqueItemId
+
           break // Stop searching
         }
       }
