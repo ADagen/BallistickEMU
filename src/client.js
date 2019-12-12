@@ -48,17 +48,23 @@ module.exports = class Client {
    * @param {Object} result
    */
   async setClient(result) {
+    // Todo: Add to lobby by reference from this.server.clients
+
+    // We don't need these
     delete result.password
     delete result.banned
 
+    // Copy object to constructor
     for (const key in result) {
       this[key] = result[key]
     }
 
+    // Override types
     this.user_level = Boolean(this.user_level)
     this.muted = Boolean(this.muted)
     this.lab_pass = Boolean(this.lab_pass)
 
+    // Const to avoid incorrect dates
     const dateInteger = utils.dateToInt()
 
     await this.updateTicket(dateInteger)
