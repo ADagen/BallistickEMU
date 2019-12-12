@@ -44,6 +44,34 @@ module.exports = class Client {
   }
 
   /**
+   * Return the client's inventory string
+   * @returns {String}
+   */
+  get inventoryString() {
+    let inventoryStr = ''
+
+    for (const uniqueItemId in this.spinners) {
+      const spinner = this.spinners[uniqueItemId]
+
+      inventoryStr += `${spinner.itemId}${Number(spinner.selected)}`
+      inventoryStr += spinner.redInner + spinner.greenInner + spinner.blueInner
+      inventoryStr += spinner.redOuter + spinner.greenOuter + spinner.blueOuter
+      inventoryStr += `${uniqueItemId};`
+    }
+
+    for (const uniqueItemId in this.pets) {
+      const pet = this.pets[uniqueItemId]
+
+      inventoryStr += `${pet.itemId}${Number(pet.selected)}`
+      inventoryStr += pet.redInner + pet.greenInner + pet.blueInner
+      inventoryStr += pet.redOuter + pet.greenOuter + pet.blueOuter
+      inventoryStr += `${uniqueItemId};`
+    }
+
+    return inventoryStr.slice(0, -1)
+  }
+
+  /**
    * Set the client
    * @param {Object} result
    */

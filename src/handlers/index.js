@@ -24,7 +24,7 @@ module.exports = {
    * @param {Client} client
    * @param {Boolean} log
    */
-  handleKeepAlive: async (client, log) => { await client.send('0', log) },
+  handleKeepAlive: async (client, log) => await client.send('0', log),
   /**
    * Handle the authentication
    * @param {String} data
@@ -104,5 +104,11 @@ module.exports = {
 
     await client.addCredits(randomPrizeAmount)
     await client.send(`0a${randomPrizeId}`, log)
-  }
+  },
+  /**
+   * Handle the inventory request
+   * @param {Client} client
+   * @param {Boolean} log
+   */
+  handleGetInventory: async (client, log) => await client.send(`0c${client.inventoryString}`, log)
 }

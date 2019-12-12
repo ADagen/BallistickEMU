@@ -14,7 +14,8 @@ const packets = {
   '08': { func: 'handleCheckServerCapacity', enabled: true, log: false },
   '0': { func: 'handleKeepAlive', enabled: true, log: false },
   '09': { func: 'handleAuthentication', enabled: true, log: true },
-  '0a': { func: 'handleTicket', enabled: true, log: true }
+  '0a': { func: 'handleTicket', enabled: true, log: true },
+  '0c': { func: 'handleGetInventory', enabled: true, log: true }
 }
 
 /**
