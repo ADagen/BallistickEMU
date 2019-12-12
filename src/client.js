@@ -109,8 +109,7 @@ module.exports = class Client {
    * @param {Number} dateInteger
    */
   async updateTicket(dateInteger) {
-    // Give the client a ticket when it's another day
-    // Or when the client is new
+    // Ticket when applicable or when client is new
     if (dateInteger > this.ticket_date || this.ticket_date === this.created) {
       this.ticket = true
       this.ticket_date += 1
@@ -122,13 +121,13 @@ module.exports = class Client {
   }
 
   /**
-   * Update the last login
+   * Update the client's last login
    * @param {Number} dateInteger
    */
   async updateLastLogin(dateInteger) {
     if (this.last_login !== dateInteger) { // Only update when needed
-      await this.updateColumn(this.id, 'last_login', dateInteger)
       this.last_login = dateInteger
+      await this.updateColumn(this.id, 'last_login', dateInteger)
     }
   }
 
