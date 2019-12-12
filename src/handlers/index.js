@@ -23,7 +23,7 @@ module.exports = {
    * Keep the client alive
    * @param {Client} client
    */
-  handleKeepAlive: async (client) => { await client.send('0', false) },
+  handleKeepAlive: async (client, log) => { await client.send('0', log) },
   /**
    * Handle the authentication
    * @param {String} data
@@ -52,12 +52,12 @@ module.exports = {
 
     // Username does not exist
     if (!result) {
-      return await client.send('09')
+      return await client.send('09', log)
     }
 
     if (result.banned) {
       // Todo: Support time-based bans
-      return await client.send('091')
+      return await client.send('091', log)
     }
 
     try {
@@ -71,9 +71,9 @@ module.exports = {
       packet += `${client.kills};${client.deaths};${client.wins};${client.losses};${client.rounds};`
       packet += `${Number(client.lab_pass)};${client.lab_pass_days};${Number(client.ticket)};${client.credits};${Number(client.user_level)}`
 
-      await client.send(packet)
+      await client.send(packet, log)
     } catch (e) {
-      await client.send('09')
+      await client.send('09', log)
     }
   }
 }
