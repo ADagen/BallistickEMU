@@ -130,17 +130,19 @@ module.exports = class Server {
    * @param {Client} client
    */
   removeClient(client) {
-    if (client.inServer) {
-      delete this.clients[client.clientId]
-
+    const removeSocket = (client) => {
       client.socket.end()
       client.socket.destroy()
+
+      logger.info(`${client.clientId} has been disconnected.`)
     }
 
-    if (client.inLobby) {
+    if (client.inServer) {
+      delete this.clients[client.clientId]
+      removeSocket(client)
+    } else if (client.inLobby) {
       delete this.lobbyClients[client.clientId]
+      removeSocket(client)
     }
-
-    logger.info(`${client.clientId} has been disconnected.`)
   }
 }
