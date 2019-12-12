@@ -79,11 +79,10 @@ module.exports = {
   },
   /**
    * Handle the ticket request
-   * @param {String} data
    * @param {Client} client
    * @param {Boolean} log
    */
-  handleTicket: async (data, client, log) => {
+  handleTicket: async (client, log) => {
     // Todo
   }
 }
