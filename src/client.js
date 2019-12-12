@@ -179,6 +179,42 @@ module.exports = class Client {
   }
 
   /**
+   * Add credits to the client
+   * @param {Number} amount
+   */
+  async addCredits(amount) {
+    this.credits = Math.max(0, Math.min(this.credits + amount, 999999))
+    await this.updateColumn(this.id, 'credits', this.credits)
+  }
+
+  /**
+   * Remove credits from the client
+   * @param {Number} amount
+   */
+  async removeCredits(amount) {
+    this.credits = Math.min(999999, Math.max(this.credits - amount, 0))
+    await this.updateColumn(this.id, 'credits', this.credits)
+  }
+
+  /**
+   * Add lab pass days to the client
+   * @param {Number} amount
+   */
+  async addLabPassDays(amount) {
+    this.lab_pass_days = Math.max(0, Math.min(this.lab_pass_days + amount, 9999))
+    await this.updateColumn(this.id, 'lab_pass_days', this.lab_pass_days)
+  }
+
+  /**
+   * Remove lab pass days from the client
+   * @param {Number} amount
+   */
+  async removeLabPassDays(amount) {
+    this.lab_pass_days = Math.min(9999, Math.max(this.lab_pass_days - amount, 0))
+    await this.updateColumn(this.id, 'lab_pass_days', this.lab_pass_days)
+  }
+
+  /**
    * Updates a column
    * @param {String|Number} playerIdentify
    * @param {String} column
