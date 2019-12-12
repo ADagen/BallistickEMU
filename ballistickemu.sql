@@ -7,13 +7,13 @@ CREATE TABLE `users` (
   -- Extra account info --
   `created` INT(8) NOT NULL DEFAULT DATE_FORMAT(CURDATE(), '%Y%m%d'),
   `last_login` INT(8) NOT NULL DEFAULT DATE_FORMAT(CURDATE(), '%Y%m%d'),
+  `ticket_date` INT(8) NOT NULL DEFAULT DATE_FORMAT(CURDATE(), '%Y%m%d'),
   `user_level` BOOLEAN NOT NULL DEFAULT 0,
   `banned` BOOLEAN NOT NULL DEFAULT 0,
   `muted` BOOLEAN NOT NULL DEFAULT 0,
   `lab_pass` BOOLEAN NOT NULL DEFAULT 0,
   `lab_pass_days` SMALLINT(4) NOT NULL DEFAULT 0 CHECK (`lab_pass_days` BETWEEN 0 AND 9999),
   `credits` MEDIUMINT(6) NOT NULL DEFAULT 0 CHECK (`credits` BETWEEN 0 AND 999999),
-  `ticket` BOOLEAN NOT NULL DEFAULT 1,
   -- Stats --
   `rounds` INT(10) UNSIGNED NOT NULL DEFAULT 0,
   `kills` INT(10) UNSIGNED NOT NULL DEFAULT 0,

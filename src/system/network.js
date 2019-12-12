@@ -13,7 +13,8 @@ const Handlers = require('../handlers/')
 const packets = {
   '08': { func: 'handleCheckServerCapacity', enabled: true, log: false },
   '0': { func: 'handleKeepAlive', enabled: true, log: false },
-  '09': { func: 'handleAuthentication', enabled: true, log: true }
+  '09': { func: 'handleAuthentication', enabled: true, log: true },
+  '0c': { func: 'handleTicket', enabled: true, log: true }
 }
 
 /**

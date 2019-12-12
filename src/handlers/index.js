@@ -22,6 +22,7 @@ module.exports = {
   /**
    * Keep the client alive
    * @param {Client} client
+   * @param {Boolean} log
    */
   handleKeepAlive: async (client, log) => { await client.send('0', log) },
   /**
@@ -75,5 +76,14 @@ module.exports = {
     } catch (e) {
       await client.send('09', log)
     }
+  },
+  /**
+   * Handle the ticket request
+   * @param {String} data
+   * @param {Client} client
+   * @param {Boolean} log
+   */
+  handleTicket: async (data, client, log) => {
+    // Todo
   }
 }

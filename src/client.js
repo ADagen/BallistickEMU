@@ -58,12 +58,29 @@ module.exports = class Client {
     this.user_level = Boolean(this.user_level)
     this.muted = Boolean(this.muted)
     this.lab_pass = Boolean(this.lab_pass)
-    this.ticket = Boolean(this.ticket)
 
-    // Todo: Ticket system
+    const dateInteger = utils.dateToInt()
 
-    await this.updateLastLogin(utils.dateToInt())
+    await this.updateTicket(dateInteger)
+    await this.updateLastLogin(dateInteger)
     await this.fetchInventory()
+  }
+
+  /**
+   * Update the client's ticket status
+   * @param {Number} dateInteger
+   */
+  async updateTicket(dateInteger) {
+    // Give the client a ticket when it's another day
+    // Or when the client is new
+    if (dateInteger > this.ticket_date || this.ticket_date === this.created) {
+      this.ticket = true
+      this.ticket_date += 1
+
+      await this.updateColumn(this.id, 'ticket_date', this.ticket_date)
+    } else {
+      this.ticket = false
+    }
   }
 
   /**
