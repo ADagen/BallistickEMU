@@ -110,7 +110,7 @@ module.exports = class Client {
    */
   async updateTicket(dateInteger) {
     // Ticket when applicable or when client is new
-    if (dateInteger > this.ticket_date || this.ticket_date === this.created) {
+    if (dateInteger >= this.ticket_date || this.ticket_date === this.created) {
       this.ticket = true
       this.ticket_date += 1
 
