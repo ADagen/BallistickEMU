@@ -60,3 +60,23 @@ exports.dateToInt = function dateToInt(date = new Date()) {
 exports.generateRandomNumber = function generateRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
+
+/**
+ * Generate a random lucky prize
+ * @exports
+ * @returns {Array}
+ */
+exports.generateLuckyPrize = function generateLuckyPrize() {
+  const prizes = [
+    // Small prizes
+    [[0, 20], [1, 25], [2, 30], [3, 35], [4, 40], [5, 55], [6, 60], [7, 75]],
+    // Medium prizes
+    [[8, 100], [9, 250], [10, 500], [11, 999]],
+    // Big prizes
+    [[12, 1500], [13, 5000]]
+  ]
+
+  const prizeArr = prizes[exports.generateRandomNumber(0, 2)]
+
+  return prizeArr[exports.generateRandomNumber(0, exports.generateRandomNumber(0, prizeArr.length - 1))]
+}
