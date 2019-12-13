@@ -32,14 +32,9 @@ CREATE TABLE `inventory` (
   `itemType` TINYINT(1) NOT NULL,
   `itemId` TINYINT(3) UNSIGNED NOT NULL,
   `selected` BOOLEAN NOT NULL DEFAULT 0,
-  -- Item inner color --
-  `redInner` CHAR(3) NOT NULL DEFAULT '255',
-  `greenInner` CHAR(3) NOT NULL DEFAULT '0',
-  `blueInner` CHAR(3) NOT NULL DEFAULT '0',
-  -- Item outer color --
-  `redOuter` CHAR(3) NOT NULL DEFAULT '255',
-  `greenOuter` CHAR(3) NOT NULL DEFAULT '0',
-  `blueOuter` CHAR(3) NOT NULL DEFAULT '0',
+  -- Item colors --
+  `innerColor` CHAR(9) NOT NULL DEFAULT '255000000',
+  `outerColor` CHAR(9) NOT NULL DEFAULT '255000000',
   PRIMARY KEY (`uniqueItemId`),
   CONSTRAINT `inventory_ibfk_1` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
@@ -62,5 +57,5 @@ UNLOCK TABLES;
 
 LOCK TABLES `inventory` WRITE;
 INSERT INTO `inventory` (`id`, `itemType`, `itemId`, `selected`) VALUES (100, 1, 100, 1);
-INSERT INTO `inventory` (`id`, `itemType`, `itemId`, `selected`, `redInner`, `redOuter`) VALUES (100, 2, 200, 0, '0', '0');
+INSERT INTO `inventory` (`id`, `itemType`, `itemId`, `selected`, `innerColor`, `outerColor`) VALUES (100, 2, 200, 0, '000000000', '000000000');
 UNLOCK TABLES;

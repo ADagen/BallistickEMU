@@ -53,19 +53,17 @@ module.exports = class Client {
     for (const uniqueItemId in this.spinners) {
       const spinner = this.spinners[uniqueItemId]
 
-      inventoryStr += `${spinner.itemId}${Number(spinner.selected)}`
-      inventoryStr += spinner.redInner + spinner.greenInner + spinner.blueInner
-      inventoryStr += spinner.redOuter + spinner.greenOuter + spinner.blueOuter
-      inventoryStr += `${uniqueItemId};`
+      inventoryStr += spinner.itemId + Number(spinner.selected)
+      inventoryStr += spinner.innerColor + spinner.outerColor
+      inventoryStr += uniqueItemId + ';'
     }
 
     for (const uniqueItemId in this.pets) {
       const pet = this.pets[uniqueItemId]
 
-      inventoryStr += `${pet.itemId}${Number(pet.selected)}`
-      inventoryStr += pet.redInner + pet.greenInner + pet.blueInner
-      inventoryStr += pet.redOuter + pet.greenOuter + pet.blueOuter
-      inventoryStr += `${uniqueItemId};`
+      inventoryStr += pet.itemId + Number(pet.selected)
+      inventoryStr += pet.innerColor + pet.outerColor
+      inventoryStr += uniqueItemId + ';'
     }
 
     // Remove the last ';'
@@ -142,23 +140,15 @@ module.exports = class Client {
       uniqueItemId: i.uniqueItemId,
       itemId: i.itemId,
       selected: Boolean(i.selected),
-      redInner: i.redInner.toString().padStart(3, '0'),
-      greenInner: i.greenInner.toString().padStart(3, '0'),
-      blueInner: i.blueInner.toString().padStart(3, '0'),
-      redOuter: i.redOuter.toString().padStart(3, '0'),
-      greenOuter: i.greenOuter.toString().padStart(3, '0'),
-      blueOuter: i.blueOuter.toString().padStart(3, '0')
+      innerColor: i.innerColor,
+      outerColor: i.outerColor
     }, o), {})
     this.pets = this.pets.reduce((o, i) => (o[i.uniqueItemId] = {
       uniqueItemId: i.uniqueItemId,
       itemId: i.itemId,
       selected: Boolean(i.selected),
-      redInner: i.redInner.toString().padStart(3, '0'),
-      greenInner: i.greenInner.toString().padStart(3, '0'),
-      blueInner: i.blueInner.toString().padStart(3, '0'),
-      redOuter: i.redOuter.toString().padStart(3, '0'),
-      greenOuter: i.greenOuter.toString().padStart(3, '0'),
-      blueOuter: i.blueOuter.toString().padStart(3, '0')
+      innerColor: i.innerColor,
+      outerColor: i.outerColor
     }, o), {})
 
     this.fetchSelectedSpinner()
@@ -172,9 +162,7 @@ module.exports = class Client {
     const spinnerKeys = Object.keys(this.spinners)
 
     if (spinnerKeys.length === 1) { // Only default spinner
-      const uniqueItemId = spinnerKeys[0]
-
-      this.selectedSpinner = JSON.parse(JSON.stringify(this.spinners[uniqueItemId]))
+      this.selectedSpinner = JSON.parse(JSON.stringify(this.spinners[spinnerKeys[0]]))
     } else {
       for (const uniqueItemId in this.spinners) {
         const spinner = this.spinners[uniqueItemId]
@@ -188,9 +176,6 @@ module.exports = class Client {
 
     // Clean the selected spinner
     delete this.selectedSpinner.selected
-    const { redInner, greenInner, blueInner, redOuter, greenOuter, blueOuter } = this.selectedSpinner
-    this.selectedSpinner.innerColor = redInner + greenInner + blueInner
-    this.selectedSpinner.outerColor = redOuter + greenOuter + blueOuter
   }
 
   /**
@@ -211,9 +196,6 @@ module.exports = class Client {
     // Clean the selected pet
     if (Object.keys(this.selectedPet).length === 1) {
       delete this.selectedPet.selected
-      const { redInner, greenInner, blueInner, redOuter, greenOuter, blueOuter } = this.selectedPet
-      this.selectedPet.innerColor = redInner + greenInner + blueInner
-      this.selectedPet.outerColor = redOuter + greenOuter + blueOuter
     }
   }
 

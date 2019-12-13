@@ -30,18 +30,14 @@ final class Database extends PDO {
 
     $q1 = $this->prepare(
       'INSERT INTO inventory
-      (id, itemType, itemId, selected, redInner, greenInner, blueInner, redOuter, greenOuter, blueOuter)
+      (id, itemType, itemId, selected, innerColor, outerColor)
       VALUES
-      (:id, 1, 100, 1, :redInner, :greenInner, :blueInner, :redOuter, :greenOuter, :blueOuter)'
+      (:id, 1, 100, 1, :innerColor, :outerColor)'
     );
     $q1->execute([
       'id'         => $id,
-      'redInner'   => $red,
-      'greenInner' => $green,
-      'blueInner'  => $blue,
-      'redOuter'   => $red,
-      'greenOuter' => $green,
-      'blueOuter'  => $blue
+      'innerColor' => $usercol,
+      'outerColor' => $usercol
     ]);
     $q1->closeCursor();
   }
@@ -49,9 +45,9 @@ final class Database extends PDO {
   public function addPetSlot($id) {
     $q1 = $this->prepare(
       'INSERT INTO inventory
-      (id, itemType, itemId, selected, redInner, redOuter)
+      (id, itemType, itemId, selected, innerColor, OuterColor)
       VALUES
-      (:id, 2, 200, 0, 0, 0)'
+      (:id, 2, 200, 0, "000000000", "000000000")'
     );
     $q1->execute(['id' => $id]);
     $q1->closeCursor();
