@@ -62,5 +62,5 @@ UNLOCK TABLES;
 
 LOCK TABLES `inventory` WRITE;
 INSERT INTO `inventory` (`id`, `itemType`, `itemId`, `selected`) VALUES (100, 1, 100, 1);
-INSERT INTO `inventory` (`id`, `itemType`, `itemId`, `selected`, `redInner`, `redOuter`) VALUES (100, 2, 200, 0, 0, 0);
+INSERT INTO `inventory` (`id`, `itemType`, `itemId`, `selected`, `redInner`, `redOuter`) VALUES (100, 2, 200, 0, '0', '0');
 UNLOCK TABLES;
