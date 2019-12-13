@@ -139,6 +139,7 @@ module.exports = class Client {
     this.pets = await this.database.knex('inventory').select('*').where({ id: this.id, itemType: 2 })
 
     this.spinners = this.spinners.reduce((o, i) => (o[i.uniqueItemId] = {
+      uniqueItemId: i.uniqueItemId,
       itemId: i.itemId,
       selected: Boolean(i.selected),
       redInner: i.redInner.toString().padStart(3, '0'),
@@ -149,6 +150,7 @@ module.exports = class Client {
       blueOuter: i.blueOuter.toString().padStart(3, '0')
     }, o), {})
     this.pets = this.pets.reduce((o, i) => (o[i.uniqueItemId] = {
+      uniqueItemId: i.uniqueItemId,
       itemId: i.itemId,
       selected: Boolean(i.selected),
       redInner: i.redInner.toString().padStart(3, '0'),
@@ -173,15 +175,12 @@ module.exports = class Client {
       const uniqueItemId = spinnerKeys[0]
 
       this.selectedSpinner = JSON.parse(JSON.stringify(this.spinners[uniqueItemId]))
-      this.selectedSpinner.uniqueItemId = uniqueItemId
     } else {
       for (const uniqueItemId in this.spinners) {
         const spinner = this.spinners[uniqueItemId]
 
         if (spinner.selected) {
           this.selectedSpinner = JSON.parse(JSON.stringify(spinner))
-          this.selectedSpinner.uniqueItemId = uniqueItemId
-
           break // Stop searching
         }
       }
@@ -198,26 +197,24 @@ module.exports = class Client {
    * Fetch the client's selected pet
    */
   fetchSelectedPet() {
-    if (Object.keys(this.pets).length === 1) { // Only empty pet slot
-      this.selectedPet = {}
-    } else {
-      for (const uniqueItemId in this.pets) {
-        const pet = this.pets[uniqueItemId]
+    this.selectedPet = {}
 
-        if (pet.selected) {
-          this.selectedPet = JSON.parse(JSON.stringify(pet))
-          this.selectedPet.uniqueItemId = uniqueItemId
+    for (const uniqueItemId in this.pets) {
+      const pet = this.pets[uniqueItemId]
 
-          break // Stop searching
-        }
+      if (pet.selected) {
+        this.selectedPet = JSON.parse(JSON.stringify(pet))
+        break // Stop searching
       }
     }
 
     // Clean the selected pet
-    delete this.selectedPet.selected
-    const { redInner, greenInner, blueInner, redOuter, greenOuter, blueOuter } = this.selectedPet
-    this.selectedPet.innerColor = redInner + greenInner + blueInner
-    this.selectedPet.outerColor = redOuter + greenOuter + blueOuter
+    if (Object.keys(this.selectedPet).length === 1) {
+      delete this.selectedPet.selected
+      const { redInner, greenInner, blueInner, redOuter, greenOuter, blueOuter } = this.selectedPet
+      this.selectedPet.innerColor = redInner + greenInner + blueInner
+      this.selectedPet.outerColor = redOuter + greenOuter + blueOuter
+    }
   }
 
   /**
