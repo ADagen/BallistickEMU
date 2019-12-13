@@ -73,6 +73,7 @@ module.exports = {
       packet += `${Number(client.lab_pass)};${client.lab_pass_days};${Number(client.ticket)};${client.credits};${Number(client.user_level)}`
 
       await client.send(packet, log)
+      await client.sendServerMessage(`Welcome to BallistickEMU, ${username}`)
     } catch (e) {
       await client.send('09', log)
     }

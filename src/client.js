@@ -285,6 +285,15 @@ module.exports = class Client {
   }
 
   /**
+   * Send a message to the client
+   * @param {String} message
+   */
+  async sendServerMessage(message) {
+    // 0h is the 'Find player' packet, but this works fine
+    await this.send(`0h[SERVER] > ${message}`)
+  }
+
+  /**
    * Disconnect the client
    */
   async disconnect() {
