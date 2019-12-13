@@ -7,7 +7,7 @@ const { verify, argon2id } = require('argon2')
  */
 module.exports = {
   /**
-   * Check the server capacity
+   * Handle the server capacity check
    * @param {String} data
    * @param {Client} client
    * @param {Boolean} log
@@ -20,7 +20,7 @@ module.exports = {
     }
   },
   /**
-   * Keep the client alive
+   * Handle the 1-minute client keep alive check
    * @param {Client} client
    * @param {Boolean} log
    */
