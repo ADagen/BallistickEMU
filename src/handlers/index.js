@@ -113,5 +113,19 @@ module.exports = {
     }
 
     // Todo: Finish this handler
+  },
+  /**
+   * Handle item purchases
+   * @param {String} data
+   * @param {Client} client
+   * @param {Boolean} log
+   */
+  handleBuyItem: async (data, client, log) => {
+    if (data.length < 21 || isNaN(data)) {
+      return await client.disconnect()
+    }
+
+    // Todo: Map slots
+    // Todo: Finish this handler
   }
 }

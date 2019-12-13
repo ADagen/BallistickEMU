@@ -16,7 +16,8 @@ const packets = {
   '09': { func: 'handleAuthentication', enabled: true, log: true },
   '0a': { func: 'handleTicket', enabled: true, log: true },
   '0c': { func: 'handleGetInventory', enabled: true, log: true },
-  '0d': { func: 'handleSelectItem', enabled: true, log: true }
+  '0d': { func: 'handleSelectItem', enabled: true, log: true },
+  '0b': { func: 'handleBuyItem', enabled: true, log: true }
 }
 
 /**
