@@ -126,6 +126,24 @@ module.exports = {
     }
 
     // Todo: Map slots
-    // Todo: Finish this handler
+
+    const itemId = parseInt(data.substring(0, 3))
+    const cost = utils.getItemCost(itemId)
+
+    // Item doesn't exist or client is cheating to buy it
+    if (!cost || client.credits < cost) {
+      return await client.disconnect()
+    }
+
+    const innerColor = data.substring(3, 12)
+    const outerColor = data.substring(12)
+
+    const itemType = itemId >= 201 ? 2 : 1
+    const inventoryObj = itemType === 2 ? client.pets : client.spinners
+
+    // Add to database/client and remove credit cost
+    const uniqueItemId = await client.database.knex('inventory').insert({ id: client.id, itemType, itemId, selected: 0, innerColor, outerColor })
+    inventoryObj[uniqueItemId[0]] = { uniqueItemId: uniqueItemId[0], itemId, selected: false, innerColor, outerColor }
+    await client.removeCredits(cost)
   }
 }
