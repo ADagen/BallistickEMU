@@ -27,6 +27,11 @@ module.exports = class Client {
      */
     this.database = server.database
     /**
+     * The item manager class
+     * @type {ItemManager}
+     */
+    this.itemManager = server.itemManager
+    /**
      * The client id
      * @type {Number}
      */

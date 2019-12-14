@@ -128,7 +128,7 @@ module.exports = {
     // Todo: Map slots
 
     const itemId = parseInt(data.substring(0, 3))
-    const cost = utils.getItemCost(itemId)
+    const cost = client.itemManager.getItemCost(itemId)
 
     // Item doesn't exist or client is cheating to buy it
     if (!cost || client.credits < cost) {
@@ -138,8 +138,8 @@ module.exports = {
     const innerColor = data.substring(3, 12)
     const outerColor = data.substring(12)
 
-    const itemType = itemId >= 201 ? 2 : 1
-    const inventoryObj = itemType === 2 ? client.pets : client.spinners
+    const itemType = client.itemManager.getItemType(itemId)
+    const inventoryObj = client.itemManager.isPet(itemId) ? client.pets : client.spinners
 
     // Add to database/client and remove credit cost
     const uniqueItemId = await client.database.knex('inventory').insert({ id: client.id, itemType, itemId, selected: 0, innerColor, outerColor })

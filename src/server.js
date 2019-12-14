@@ -34,9 +34,19 @@ module.exports = class Server {
     this.database = new (require('./system/database'))(require('../config/database'))
 
     /**
+     * The item manager class
+     * @type {ItemManager}
+     */
+    this.itemManager = require('./managers/item')
+
+    /**
      * Start the server
      */
-    this.network.validateHandlers().then(() => { this.start() }).catch((err) => logger.error(err))
+    this.network.validateHandlers().then(() => {
+      this.itemManager.loadItems().then(() => {
+        this.start()
+      }).catch((err) => logger.error(err))
+    }).catch((err) => logger.error(err))
     /**
      * Stop the server
      */
