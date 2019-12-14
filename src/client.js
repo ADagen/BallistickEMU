@@ -137,17 +137,17 @@ module.exports = class Client {
    * Fetch the client's inventory
    */
   async fetchInventory() {
-    this.spinners = await this.database.knex('inventory').select('*').where({ id: this.id, itemType: 1 })
-    this.pets = await this.database.knex('inventory').select('*').where({ id: this.id, itemType: 2 })
+    const spinners = await this.database.knex('inventory').select('*').where({ id: this.id, itemType: 1 })
+    const pets = await this.database.knex('inventory').select('*').where({ id: this.id, itemType: 2 })
 
-    this.spinners = this.spinners.reduce((o, i) => (o[i.uniqueItemId] = {
+    this.spinners = spinners.reduce((o, i) => (o[i.uniqueItemId] = {
       uniqueItemId: i.uniqueItemId,
       itemId: i.itemId,
       selected: Boolean(i.selected),
       innerColor: i.innerColor,
       outerColor: i.outerColor
     }, o), {})
-    this.pets = this.pets.reduce((o, i) => (o[i.uniqueItemId] = {
+    this.pets = pets.reduce((o, i) => (o[i.uniqueItemId] = {
       uniqueItemId: i.uniqueItemId,
       itemId: i.itemId,
       selected: Boolean(i.selected),
