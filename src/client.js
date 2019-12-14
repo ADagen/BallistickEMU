@@ -32,6 +32,11 @@ module.exports = class Client {
      */
     this.clientId = utils.createClientId(server.clients)
     /**
+     * The client's ip address
+     * @type {String}
+     */
+    this.ip = socket.remoteAddress.split(':').pop()
+    /**
      * Defines whether the client is in the server or not
      * @type {Boolean}
      */
