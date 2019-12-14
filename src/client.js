@@ -173,7 +173,7 @@ module.exports = class Client {
       }
     }
 
-    // Clean the selected spinner
+    // Remove the 'selected' key from the selected spinner
     delete this.selectedSpinner.selected
   }
 
@@ -192,7 +192,7 @@ module.exports = class Client {
       }
     }
 
-    // Clean the selected pet
+    // Remove the 'selected' key from the selected pet when the client selected one
     if (Object.keys(this.selectedPet).length === 1) {
       delete this.selectedPet.selected
     }
