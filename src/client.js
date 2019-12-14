@@ -58,32 +58,11 @@ module.exports = class Client {
    * @returns {String}
    */
   get inventoryString() {
-    let inventoryStr = ''
+    // Fast way to parse the client's inventory, which depends on how the object is formed
+    const spinnerStr = Object.values(this.spinners).map((spinner) => Object.values(spinner).join('')).join(';')
+    const petStr = Object.values(this.pets).map((pet) => Object.values(pet).join('')).join(';')
 
-    for (const uniqueItemId in this.spinners) {
-      const { itemId, selected, innerColor, outerColor } = this.spinners[uniqueItemId]
-
-      // Spinner validation
-      if (this.itemManager.isSpinner(itemId)) {
-        inventoryStr += `${itemId}${Number(selected)}`
-        inventoryStr += `${innerColor}${outerColor}`
-        inventoryStr += uniqueItemId + ';'
-      }
-    }
-
-    for (const uniqueItemId in this.pets) {
-      const { itemId, selected, innerColor, outerColor } = this.pets[uniqueItemId]
-
-      // Pet validation, also allow empty pet slot
-      if (this.itemManager.isPet(itemId) || itemId === 200) {
-        inventoryStr += `${itemId}${Number(selected)}`
-        inventoryStr += `${innerColor}${outerColor}`
-        inventoryStr += uniqueItemId + ';'
-      }
-    }
-
-    // Removes the last ';'
-    return inventoryStr.slice(0, -1)
+    return `${spinnerStr};${petStr}`
   }
 
   /**
@@ -152,18 +131,18 @@ module.exports = class Client {
     const pets = await this.database.knex('inventory').select('*').where({ id: this.id, itemType: 2 })
 
     this.spinners = spinners.reduce((o, i) => (o[i.uniqueItemId] = {
-      uniqueItemId: i.uniqueItemId,
       itemId: i.itemId,
-      selected: Boolean(i.selected),
+      selected: i.selected,
       innerColor: i.innerColor,
-      outerColor: i.outerColor
+      outerColor: i.outerColor,
+      uniqueItemId: i.uniqueItemId
     }, o), {})
     this.pets = pets.reduce((o, i) => (o[i.uniqueItemId] = {
-      uniqueItemId: i.uniqueItemId,
       itemId: i.itemId,
-      selected: Boolean(i.selected),
+      selected: i.selected,
       innerColor: i.innerColor,
-      outerColor: i.outerColor
+      outerColor: i.outerColor,
+      uniqueItemId: i.uniqueItemId
     }, o), {})
 
     this.fetchSelectedSpinner()

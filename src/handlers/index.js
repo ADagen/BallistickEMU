@@ -137,13 +137,12 @@ module.exports = {
 
     const innerColor = data.substring(3, 12)
     const outerColor = data.substring(12)
-
     const itemType = client.itemManager.getItemType(itemId)
     const inventoryObj = client.itemManager.isPet(itemId) ? client.pets : client.spinners
 
     // Add to database/client and remove credit cost
     const uniqueItemId = await client.database.knex('inventory').insert({ id: client.id, itemType, itemId, selected: 0, innerColor, outerColor })
-    inventoryObj[uniqueItemId[0]] = { uniqueItemId: uniqueItemId[0], itemId, selected: false, innerColor, outerColor }
+    inventoryObj[uniqueItemId[0]] = { itemId, selected: 0, innerColor, outerColor, uniqueItemId: uniqueItemId[0] }
     await client.removeCredits(cost)
   }
 }
