@@ -32,7 +32,7 @@ module.exports = {
    * @param {Boolean} log
    */
   handleAuthentication: async (data, client, log) => {
-    // Username and password are padded between ;
+    // Username and password are split between ;
     if (data.indexOf(';') === -1) {
       return await client.disconnect()
     }
