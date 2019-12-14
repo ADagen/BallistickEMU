@@ -61,19 +61,25 @@ module.exports = class Client {
     let inventoryStr = ''
 
     for (const uniqueItemId in this.spinners) {
-      const spinner = this.spinners[uniqueItemId]
+      const { itemId, selected, innerColor, outerColor } = this.spinners[uniqueItemId]
 
-      inventoryStr += `${spinner.itemId}${Number(spinner.selected)}`
-      inventoryStr += `${spinner.innerColor}${spinner.outerColor}`
-      inventoryStr += uniqueItemId + ';'
+      // Spinner validation
+      if (this.itemManager.isSpinner(itemId)) {
+        inventoryStr += `${itemId}${Number(selected)}`
+        inventoryStr += `${innerColor}${outerColor}`
+        inventoryStr += uniqueItemId + ';'
+      }
     }
 
     for (const uniqueItemId in this.pets) {
-      const pet = this.pets[uniqueItemId]
+      const { itemId, selected, innerColor, outerColor } = this.pets[uniqueItemId]
 
-      inventoryStr += `${pet.itemId}${Number(pet.selected)}`
-      inventoryStr += `${pet.innerColor}${pet.outerColor}`
-      inventoryStr += uniqueItemId + ';'
+      // Pet validation, also allow empty pet slot
+      if (this.itemManager.isPet(itemId) || itemId === 200) {
+        inventoryStr += `${itemId}${Number(selected)}`
+        inventoryStr += `${innerColor}${outerColor}`
+        inventoryStr += uniqueItemId + ';'
+      }
     }
 
     // Removes the last ';'
