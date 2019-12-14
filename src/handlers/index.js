@@ -70,7 +70,7 @@ module.exports = {
       let packet = `A${client.clientId}${client.username.padStart(20, '#')}`
       packet += `${client.selectedSpinner.innerColor}${client.selectedSpinner.outerColor}`
       packet += `${client.kills};${client.deaths};${client.wins};${client.losses};${client.rounds};`
-      packet += `${Number(client.lab_pass)};${client.lab_pass_days};${Number(client.ticket)};${client.credits};${Number(client.user_level)}`
+      packet += `1;9999;${Number(client.ticket)};${client.credits};${Number(client.user_level)}`
 
       await client.send(packet, log)
       await client.sendServerMessage(`Welcome to BallistickEMU, ${username}`)
