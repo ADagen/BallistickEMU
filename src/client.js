@@ -76,7 +76,7 @@ module.exports = class Client {
       inventoryStr += uniqueItemId + ';'
     }
 
-    // Remove the last ';'
+    // Removes the last ';'
     return inventoryStr.slice(0, -1)
   }
 
@@ -85,7 +85,7 @@ module.exports = class Client {
    * @param {Object} result
    */
   async setClient(result) {
-    // Create a reference to preserve memory
+    // Create a client reference to preserve memory
     this.server.lobbyClients[this.clientId] = this.server.clients[this.clientId]
     this.inServer = false
     this.inLobby = true
