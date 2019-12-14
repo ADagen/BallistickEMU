@@ -132,14 +132,14 @@ module.exports = class Client {
 
     this.spinners = spinners.reduce((o, i) => (o[i.uniqueItemId] = {
       itemId: i.itemId,
-      selected: i.selected,
+      selected: i.selected, // Number, used as Boolean
       innerColor: i.innerColor,
       outerColor: i.outerColor,
       uniqueItemId: i.uniqueItemId
     }, o), {})
     this.pets = pets.reduce((o, i) => (o[i.uniqueItemId] = {
       itemId: i.itemId,
-      selected: i.selected,
+      selected: i.selected, // Number, used as a Boolean
       innerColor: i.innerColor,
       outerColor: i.outerColor,
       uniqueItemId: i.uniqueItemId

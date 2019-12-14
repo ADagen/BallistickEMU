@@ -142,7 +142,7 @@ module.exports = {
 
     // Add to database/client and remove credit cost
     const uniqueItemId = await client.database.knex('inventory').insert({ id: client.id, itemType, itemId, selected: 0, innerColor, outerColor })
-    inventoryObj[uniqueItemId[0]] = { itemId, selected: 0, innerColor, outerColor, uniqueItemId: uniqueItemId[0] }
+    inventoryObj[uniqueItemId[0]] = { itemId, selected: 0, innerColor, outerColor, uniqueItemId: uniqueItemId[0] } // Important order
     await client.removeCredits(cost)
   }
 }
