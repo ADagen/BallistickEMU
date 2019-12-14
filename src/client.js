@@ -53,16 +53,16 @@ module.exports = class Client {
     for (const uniqueItemId in this.spinners) {
       const spinner = this.spinners[uniqueItemId]
 
-      inventoryStr += spinner.itemId + Number(spinner.selected)
-      inventoryStr += spinner.innerColor + spinner.outerColor
+      inventoryStr += `${spinner.itemId}${Number(spinner.selected)}`
+      inventoryStr += `${spinner.innerColor}${spinner.outerColor}`
       inventoryStr += uniqueItemId + ';'
     }
 
     for (const uniqueItemId in this.pets) {
       const pet = this.pets[uniqueItemId]
 
-      inventoryStr += pet.itemId + Number(pet.selected)
-      inventoryStr += pet.innerColor + pet.outerColor
+      inventoryStr += `${pet.itemId}${Number(pet.selected)}`
+      inventoryStr += `${pet.innerColor}${pet.outerColor}`
       inventoryStr += uniqueItemId + ';'
     }
 

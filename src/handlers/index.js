@@ -68,7 +68,7 @@ module.exports = {
       await client.setClient(result) // Sets up the client, important
 
       let packet = `A${client.clientId}${client.username.padStart(20, '#')}`
-      packet += client.selectedSpinner.innerColor + client.selectedSpinner.outerColor
+      packet += `${client.selectedSpinner.innerColor}${client.selectedSpinner.outerColor}`
       packet += `${client.kills};${client.deaths};${client.wins};${client.losses};${client.rounds};`
       packet += `${Number(client.lab_pass)};${client.lab_pass_days};${Number(client.ticket)};${client.credits};${Number(client.user_level)}`
 
