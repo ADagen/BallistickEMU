@@ -7,6 +7,7 @@ A Stick Arena Ballistick v558 emulator written in Node.js
 - [SWF] Removed `Protect` tag
 - [SWF] Removed `Unknown` tag
 - [SWF] Moved every URL to `http://127.0.0.1/`
+- [SWF] Fixed `apiURL` to `http://api.localhost/?`
 
 # Copyright
 
