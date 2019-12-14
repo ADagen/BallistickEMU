@@ -76,8 +76,9 @@ exports.generateLuckyPrize = function generateLuckyPrize() {
     [[12, 1500], [13, 5000]]
   ]
 
-  const prizeArr = prizes[exports.generateRandomNumber(0, 2)]
+  const prizeArr = prizes[exports.generateRandomNumber(0, 2)] // Random array of prizes
 
+  // Pick a random prize from that array of prizes
   return prizeArr[exports.generateRandomNumber(0, exports.generateRandomNumber(0, prizeArr.length - 1))]
 }
 
