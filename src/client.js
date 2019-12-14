@@ -168,43 +168,29 @@ module.exports = class Client {
    * Fetch the client's selected spinner
    */
   fetchSelectedSpinner() {
-    const spinnerKeys = Object.keys(this.spinners)
+    for (const uniqueItemId in this.spinners) {
+      const { selected, itemId, innerColor, outerColor } = this.spinners[uniqueItemId]
 
-    if (spinnerKeys.length === 1) { // Only default spinner
-      this.selectedSpinner = JSON.parse(JSON.stringify(this.spinners[spinnerKeys[0]]))
-    } else {
-      for (const uniqueItemId in this.spinners) {
-        const spinner = this.spinners[uniqueItemId]
-
-        if (spinner.selected) {
-          this.selectedSpinner = JSON.parse(JSON.stringify(spinner))
-          break // Stop searching
-        }
+      if (selected) {
+        this.selectedSpinner = { uniqueItemId, itemId, innerColor, outerColor }
+        break // Stop searching
       }
     }
-
-    // Remove the 'selected' key from the selected spinner
-    delete this.selectedSpinner.selected
   }
 
   /**
    * Fetch the client's selected pet
    */
   fetchSelectedPet() {
-    this.selectedPet = {}
+    this.selectedPet = {} // Client can have no pet selected
 
     for (const uniqueItemId in this.pets) {
-      const pet = this.pets[uniqueItemId]
+      const { selected, itemId, innerColor, outerColor } = this.pets[uniqueItemId]
 
-      if (pet.selected) {
-        this.selectedPet = JSON.parse(JSON.stringify(pet))
+      if (selected) {
+        this.selectedPet = { uniqueItemId, itemId, innerColor, outerColor }
         break // Stop searching
       }
-    }
-
-    // Remove the 'selected' key from the selected pet when the client selected one
-    if (Object.keys(this.selectedPet).length === 1) {
-      delete this.selectedPet.selected
     }
   }
 
