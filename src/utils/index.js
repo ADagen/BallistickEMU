@@ -37,7 +37,11 @@ exports.validateMaxProp = function validateMaxProp(max) {
  * @returns {Number}
  */
 exports.minutesToMilliseconds = function minutesToMilliseconds(minutes) {
-  return minutes * 60000
+  if (isNaN(minutes)) {
+    throw new Error(`Invalid config value for 'timeout'.`)
+  }
+
+  return parseInt(minutes) * 60000
 }
 
 /**
