@@ -91,6 +91,16 @@ final class Database extends PDO {
 
     echo 'result=success';
   }
+
+  public function getLeaderboard() {
+    $q1 = $this->prepare('SELECT username, kills, deaths, wins, losses FROM users ORDER BY CAST(kills AS INTEGER) DESC LIMIT 50');
+    $q1->execute();
+
+    $data = $q1->fetchAll();
+    $q1->closeCursor();
+
+    return $data;
+  }
 }
 
 ?>
