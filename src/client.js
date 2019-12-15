@@ -104,9 +104,6 @@ module.exports = class Client {
     // Ticket when applicable or when client is new
     if (dateInteger >= this.ticket_date || this.ticket_date === this.created) {
       this.ticket = true
-      this.ticket_date += 1
-
-      await this.updateColumn(this.id, 'ticket_date', this.ticket_date)
     } else {
       this.ticket = false
     }

@@ -89,6 +89,9 @@ module.exports = {
       return await client.disconnect()
     }
 
+    client.ticket_date += 1
+    await client.updateColumn(client.id, 'ticket_date', client.ticket_date)
+
     const [prizeId, prizeAmount] = utils.generateLuckyPrize()
 
     await client.addCredits(prizeAmount)
