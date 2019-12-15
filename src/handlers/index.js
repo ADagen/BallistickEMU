@@ -89,6 +89,7 @@ module.exports = {
       return await client.disconnect()
     }
 
+    // Set date upon claim
     client.ticket_date += 1
     await client.updateColumn(client.id, 'ticket_date', client.ticket_date)
 
@@ -115,7 +116,41 @@ module.exports = {
       return await client.disconnect()
     }
 
-    // Todo: Finish this handler
+    if (client.pets[uniqueItemId]) {
+      const selected = client.selectedPet
+
+      if (client.pets[uniqueItemId].itemId === 200) { // Selecting no pets
+        await client.database.knex('inventory').update('selected', 0).where('uniqueItemId', selected.uniqueItemId)
+
+        // No need to select any pet
+        client.pets[selected.uniqueItemId].selected = 0
+        client.selectedPet = {}
+      } else {
+        const hasPet = Object.keys(selected).length !== 0  // Selecting from no pet to pet
+
+        if (hasPet) {
+          await client.database.knex('inventory').update('selected', 0).where('uniqueItemId', selected.uniqueItemId)
+        }
+
+        await client.database.knex('inventory').update('selected', 1).where({ uniqueItemId })
+
+        if (hasPet) {
+          client.pets[selected.uniqueItemId].selected = 0
+        }
+
+        client.pets[uniqueItemId].selected = 1
+        client.selectedPet = client.pets[uniqueItemId]
+      }
+    } else {
+      const selected = client.selectedSpinner
+
+      await client.database.knex('inventory').update('selected', 0).where('uniqueItemId', selected.uniqueItemId)
+      await client.database.knex('inventory').update('selected', 1).where({ uniqueItemId })
+
+      client.spinners[selected.uniqueItemId].selected = 0
+      client.spinners[uniqueItemId].selected = 1
+      client.selectedSpinner = client.spinners[uniqueItemId]
+    }
   },
   /**
    * Handle item purchases
